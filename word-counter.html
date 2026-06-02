@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="assests/bootstrap/css/bootstrap.min.css">
+    <!-- StyleSheet  -->
+    <link rel="stylesheet" href="assests/style/main.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            /* margin: 0; */
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            margin-top: 100px;
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007BFF;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- navbar area  -->
+    <!-- navbar area  -->
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/index.html">CtrlSultan</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/courses.html">Courses</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/cracked-software.html">Cracked Softwares</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Free Tools
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/color-picker.html">Color Picker</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item active" href="/word-counter.html">Word Counter</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="/my-quotes-area.html">My Quotes Area</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="/thumnail-downloader.html">Thumbnail Downloader</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="/image-format-changer.html">Image Format Changer</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="/image-resizer.html">Image Resizer</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-secondary" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+    <div class="container">
+        <h1>Text Analyzer</h1>
+        <textarea id="textInput" placeholder="Enter your text here..."></textarea>
+        <button id="analyzeButton">Analyze Text</button>
+        <p id="wordCount">Word Count: 0</p>
+    </div>
+
+</body>
+<script>
+    // script.js
+document.getElementById('analyzeButton').addEventListener('click', function() {
+  const text = document.getElementById('textInput').value.trim();
+  
+  // Split the text by spaces and filter out any empty strings
+  const words = text.split(/\s+/).filter(word => word.length > 0);
+  
+  // Count the number of words
+  const wordCount = words.length;
+  
+  // Display the word count
+  document.getElementById('wordCount').textContent = `Word Count: ${wordCount}`;
+});
+
+
+
+</script>
+<!-- bootstrap -->
+ <script src="/assests/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</html>

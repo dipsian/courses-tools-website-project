@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website</title>
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="assests/bootstrap/css/bootstrap.min.css">
+  <!-- StyleSheet  -->
+  <link rel="stylesheet" href="assests/style/main.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f0f2f5;
+    }
+
+    .container {
+      max-width: 800px;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 100px auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff0000;
+      margin-bottom: 30px;
+    }
+
+    .input-section {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    #urlInput {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 12px 25px;
+      background: #ff0000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #cc0000;
+    }
+
+    .thumbnails {
+      display: none;
+      gap: 30px;
+      flex-direction: column;
+    }
+
+    .thumbnail-container {
+      text-align: center;
+    }
+
+    .thumbnail-img {
+      max-width: 100%;
+      height: auto;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      margin: 15px 0;
+    }
+
+    .size-text {
+      color: #666;
+      margin: 10px 0;
+    }
+
+    .error-popup {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ffebee;
+      color: #d32f2f;
+      padding: 15px 25px;
+      border-radius: 5px;
+      border: 1px solid #ffcdd2;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 600px) {
+      .input-section {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- navbar area  -->
+  <!-- navbar area  -->
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/index.html">CtrlSultan</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/courses.html">Courses</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/cracked-software.html">Cracked Softwares</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Free Tools
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/color-picker.html">Color Picker</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="/word-counter.html">Word Counter</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="/my-quotes-area.html">My Quotes Area</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item active" href="/thumnail-downloader.html">Thumbnail Downloader</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="/image-format-changer.html">Image Format Changer</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="/image-resizer.html">Image Resizer</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-secondary" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>YouTube Thumbnail Downloader</h1>
+    <div class="input-section">
+      <input type="text" id="urlInput" placeholder="Paste YouTube video link here...">
+      <button onclick="handleDownload()">Download</button>
+    </div>
+    <div class="thumbnails" id="thumbnails">
+      <div class="thumbnail-container" id="largeThumbnail"></div>
+      <div class="thumbnail-container" id="smallThumbnail"></div>
+    </div>
+  </div>
+  <div class="error-popup" id="errorPopup">
+    Only YouTube video thumbnails can be downloaded!
+  </div>
+
+</body>
+<!-- bootstrap -->
+<script src="/assests/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  function isValidYouTubeUrl(url) {
+    const pattern = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=|embed\/|v\/|shorts\/)?([a-zA-Z0-9_-]{11})/;
+    return pattern.test(url);
+  }
+
+  function getVideoId(url) {
+    const match = url.match(/(?:v=|shorts\/|vi\/|embed\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    return match ? match[1] : null;
+  }
+
+  async function handleDownload() {
+    const url = document.getElementById('urlInput').value.trim();
+    const errorPopup = document.getElementById('errorPopup');
+    const thumbnails = document.getElementById('thumbnails');
+
+    if (!isValidYouTubeUrl(url)) {
+      errorPopup.style.display = 'block';
+      thumbnails.style.display = 'none';
+      setTimeout(() => errorPopup.style.display = 'none', 3000);
+      return;
+    }
+
+    const videoId = getVideoId(url);
+    if (!videoId) return;
+
+    const baseUrl = 'https://img.youtube.com/vi/';
+    const largeUrl = `${baseUrl}${videoId}/maxresdefault.jpg`;
+    const smallUrl = `${baseUrl}${videoId}/hqdefault.jpg`;
+
+    // Check if maxresdefault exists
+    const img = new Image();
+    img.src = largeUrl;
+    await new Promise(resolve => img.onload = resolve);
+    const finalLargeUrl = img.naturalWidth === 120 ? `${baseUrl}${videoId}/hqdefault.jpg` : largeUrl;
+
+    displayThumbnails(finalLargeUrl, smallUrl);
+  }
+
+  async function displayThumbnails(largeUrl, smallUrl) {
+    const thumbnails = document.getElementById('thumbnails');
+    thumbnails.style.display = 'flex';
+
+    const createThumbnailSection = async (url, containerId) => {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+
+      const img = new Image();
+      img.src = url;
+      await new Promise(resolve => img.onload = resolve);
+
+      const sizeText = document.createElement('div');
+      sizeText.className = 'size-text';
+      sizeText.textContent = `${img.naturalWidth} x ${img.naturalHeight} px`;
+
+      const downloadBtn = document.createElement('button');
+      downloadBtn.textContent = 'Download';
+      downloadBtn.onclick = () => downloadImage(url, `thumbnail-${containerId}-${Date.now()}.jpg`);
+
+      container.appendChild(img);
+      container.appendChild(sizeText);
+      container.appendChild(downloadBtn);
+      img.className = 'thumbnail-img';
+    };
+
+    await createThumbnailSection(largeUrl, 'largeThumbnail');
+    await createThumbnailSection(smallUrl, 'smallThumbnail');
+  }
+
+  async function downloadImage(url, filename) {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const objectUrl = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = objectUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(objectUrl);
+    } catch (error) {
+      console.error('Download failed:', error);
+    }
+  }
+
+</script>
+
+</html>
